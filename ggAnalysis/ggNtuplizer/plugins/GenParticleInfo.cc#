@@ -1,0 +1,172 @@
+#include <string>
+#include <vector>
+#include <iostream>
+#include <iomanip>
+#include <sstream>
+#include <TLorentzVector.h>
+
+#include "FWCore/Framework/interface/Frameworkfwd.h"
+#include "FWCore/Framework/interface/EDAnalyzer.h"
+#include "FWCore/Framework/interface/Event.h"
+#include "FWCore/ParameterSet/interface/ParameterSet.h"
+#include "FWCore/ServiceRegistry/interface/Service.h"
+#include "DataFormats/Common/interface/Handle.h"
+#include "FWCore/MessageLogger/interface/MessageLogger.h"
+#include "CommonTools/UtilAlgos/interface/TFileService.h"
+#include "DataFormats/HepMCCandidate/interface/GenParticle.h"
+#include "CommonTools/UtilAlgos/interface/TFileService.h"
+#include "SimDataFormats/GeneratorProducts/interface/GenEventInfoProduct.h"
+
+using namespace std;
+
+class GenParticleInfo : public edm::EDAnalyzer
+{
+public:
+  explicit GenParticleInfo(const edm::ParameterSet& iConfig);
+  virtual ~GenParticleInfo();
+  virtual void beginJob();
+  virtual void endJob();
+  virtual void analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup);
+  void finddaughter(const reco::Candidate& part, double genWeight_,bool z, bool fill);
+  bool findmother(const reco::Candidate& part);
+  void getdaughter(const reco::Candidate& part);
+private:
+  const edm::InputTag genParticleTag_;
+  edm::EDGetTokenT<reco::GenParticleCollection> tok_Genparticle;
+  edm::EDGetTokenT<GenEventInfoProduct>            generatorLabel_;
+  int pdgId_;
+  TH1F *h_ZmuonPt, *h_taumuonPt, *h_Zmass, *h_ZZmass, *h_1stzmuonpt, *h_1sttaumuonpt, *h_1stzmass, *h_zcounter, *h_zdaughter, *h_z2daughter, *h_status;
+  std::vector<TLorentzVector> Muon;
+};
+
+
+GenParticleInfo::GenParticleInfo(const edm::ParameterSet& iConfig) :
+  genParticleTag_(iConfig.getUntrackedParameter<edm::InputTag>("genParticleSrc", edm::InputTag("prunedGenParticles"))),
+  tok_Genparticle(consumes<reco::GenParticleCollection>(genParticleTag_)),
+  generatorLabel_(consumes<GenEventInfoProduct>(iConfig.getParameter<edm::InputTag>("generatorLabel")))
+{
+}
+
+GenParticleInfo::~GenParticleInfo() {
+}
+
+void GenParticleInfo::beginJob() {
+  edm::Service<TFileService> fs;
+  h_ZmuonPt = fs->make<TH1F>("pt_ZMuon","pt distribution of Muon with status 1 at gen label coming from z",200,0.,200.);
+  h_ZmuonPt->GetXaxis()->SetTitle("muonGenPt");
+  h_taumuonPt = fs->make<TH1F>("pt_tauMuon","pt distribution of Muon with status 1 at gen label coming from tau & tau coming from z",200,0.,200.);
+  h_Zmass = fs->make<TH1F>("ZMass","Mass distribution of z reconstructed from its daughter muon with status 1",150,0.,150.);
+  h_ZZmass = fs->make<TH1F>("ZZMass","Mass distribution of ZZ at gen label",400,0.,400.);
+  h_1stzmuonpt = fs->make<TH1F>("pt_1stZMuon","pt distribution of Muon at gen label coming from directly z with arbitrary status",200,0.,200.);
+  h_1sttaumuonpt = fs->make<TH1F>("pt_1sttauMuon","pt distribution of Muon at gen label coming from directly tau with arbitrary status where tau coming from z",200,0.,200.);
+  h_1stzmass = fs->make<TH1F>("zmass","True mass distribution of z at gen label",200,0.,200.);
+  h_zcounter= fs->make<TH1F>("zcounter","z counter",5,0.,5.);
+  h_zdaughter= fs->make<TH1F>("zdaughter","# of events having 4 daughter of z",6,0.,6.);
+  h_z2daughter= fs->make<TH1F>("z2daughter","# of daughter when there is two z",6,0.,6.);
+  h_status = fs->make<TH1F>("zstatus","z status when decaying two another particle",100,0.,100);
+}
+
+void GenParticleInfo::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup) {
+  
+  edm::Handle<reco::GenParticleCollection> genParticles;
+  bool found = iEvent.getByToken(tok_Genparticle, genParticles);
+  if (!found) return;
+  
+  edm::Handle<GenEventInfoProduct> genEventInfoHandle;
+  iEvent.getByToken(generatorLabel_, genEventInfoHandle);
+  double genWeight_(1.0);
+  if (genEventInfoHandle.isValid()) genWeight_ = genEventInfoHandle->weight();
+  
+  std::vector<TLorentzVector> zp;
+  int counter =0;
+  for (const reco::GenParticle& v: *genParticles) {
+    
+    const reco::Candidate& part = dynamic_cast<const reco::Candidate&>(v);
+    if(fabs(v.pdgId()) == 23) getdaughter(v);
+    if(fabs(v.pdgId()) == 23 && v.status() ==62) {
+      counter +=1;
+      if(v.numberOfDaughters() ==4) h_zdaughter->Fill(1);
+      h_1stzmass->Fill(v.mass());
+      Muon.clear();
+      finddaughter(part, genWeight_,true,true);
+      if(Muon.size()==2) {
+	zp.push_back(Muon[0]);
+	zp.push_back(Muon[1]);
+      }
+    }
+    else if(fabs(v.pdgId()) == 15 && v.status() ==2) {
+      bool mom = findmother(part);
+      if(mom) finddaughter(part, genWeight_,false,true);
+    }
+    else continue;
+  }
+  if (zp.size() == 4) h_ZZmass->Fill((zp[0]+zp[1]+zp[2]+zp[3]).M(),genWeight_);
+  if(counter==2) {
+    for (const reco::GenParticle& v: *genParticles) {
+      if(fabs(v.pdgId()) == 23 && v.status() ==62) {
+        h_z2daughter->Fill(v.numberOfDaughters());
+      }
+    }
+  }
+  if(counter==0) std::cout << "Event== " << iEvent.id().event() << std::endl;
+  h_zcounter->Fill(counter);
+}
+
+  
+
+#include "FWCore/Framework/interface/MakerMacros.h"
+DEFINE_FWK_MODULE(GenParticleInfo);
+
+void GenParticleInfo::finddaughter(const reco::Candidate& v, double genWeight_, bool z, bool fill) {
+
+  for(unsigned int i=0; i<v.numberOfDaughters(); i++) {
+    const reco::Candidate& daughter = *(v.daughter(i));
+    if(fabs(daughter.pdgId()) != 13) continue;
+    if(fill && z) {
+      h_1stzmuonpt->Fill(daughter.pt(),genWeight_);
+    }
+    else if(fill && !z) {
+      h_1sttaumuonpt->Fill(daughter.pt(),genWeight_);
+    }
+    if(daughter.status() !=1) finddaughter(daughter,genWeight_,z,false);
+    if (daughter.status() ==1) {
+      TLorentzVector muon;
+      muon.SetPtEtaPhiE(daughter.pt(),daughter.eta(),daughter.phi(),daughter.energy());
+      Muon.push_back(muon);
+      if(z) {
+	h_ZmuonPt->Fill(daughter.pt(), genWeight_);
+      }
+      else {
+	h_taumuonPt->Fill(daughter.pt(), genWeight_);
+      }
+    }
+  }
+  if(z && Muon.size()==2) {
+    h_Zmass->Fill((Muon[0]+Muon[1]).M(),genWeight_);
+  }
+}
+
+void GenParticleInfo::getdaughter(const reco::Candidate& v) {
+
+  for(unsigned int i=0; i<v.numberOfDaughters(); i++) {
+    const reco::Candidate& daughter = *(v.daughter(i));
+    if(daughter.pdgId() == 23) continue;
+    if(daughter.pdgId() == v.pdgId()) getdaughter(daughter);
+    h_status->Fill(v.status());
+    break;
+  }
+}
+
+bool GenParticleInfo::findmother(const reco::Candidate& v) {
+
+  for(unsigned int i=0; i<v.numberOfMothers(); i++){
+    const reco::Candidate& mom = *(v.mother(i));
+    if(fabs(mom.pdgId()) !=23 || mom.status() !=62) findmother(mom);
+    if(fabs(mom.pdgId()) ==23 && mom.status() ==62) return true;
+  }
+  return false;
+} 
+ 
+ void GenParticleInfo::endJob() {
+   
+}

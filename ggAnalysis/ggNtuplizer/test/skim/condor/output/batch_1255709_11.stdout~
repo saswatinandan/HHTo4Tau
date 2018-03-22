@@ -1,0 +1,661 @@
+input parameters: cluster, process, run path, out path, sample name 1255709 11 /uscms_data/d3/snandan/CMSSW_8_0_26_patch1/src/ggAnalysis/ggNtuplizer/test/skim /eos/uscms/store/user/snandan/skim
+
+CMSSW on Condor
+
+started at Thu Mar 16 23:45:52 CDT 2017
+
+parameter set:
+CLUSTER: 1255709
+PROCESS: 11
+RUNPATH: /uscms_data/d3/snandan/CMSSW_8_0_26_patch1/src/ggAnalysis/ggNtuplizer/test/skim
+OUTPATH: /eos/uscms/store/user/snandan/skim
+/storage/local/data1/condor/execute/dir_2694407
+/uscms_data/d3/snandan/CMSSW_8_0_26_patch1/src/ggAnalysis/ggNtuplizer/test/skim , for cmsenv
+check whether eos is working here
+/storage/local/data1/condor/execute/dir_2694407
+/storage/local/data1/condor/execute/dir_2694407 , for job running
+DataSetArray==== /store/user/abdollah/Moriond17/MC/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/crab_DYJetsToLL_M-50_ext1-v2/170224_212616/0000
+/store/user/abdollah/Moriond17/MC/ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/crab_ST_t-channel_antitop_4f_inclusiveDecays-v1/170224_213545/0000
+DataSetName====/store/user/abdollah/Moriond17/MC/ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/crab_ST_t-channel_antitop_4f_inclusiveDecays-v1/170224_213545/0000
+PROCESS===  11 SplitingNumber==  10
+g++ `root-config --cflags` -I/usr/local/root/include `root-config --libs` -lMinuit -o Skimmer Skimmer.cc
+Here is the short Name   ------> /MC/ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/crab_ST_t-channel_antitop_4f_inclusiveDecays-v1/170224_213545/0000/ggtree_mc_1.root
+token=== 
+token=== MC
+token=== ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1
+token=== crab_ST_t-channel_antitop_4f_inclusiveDecays-v1
+token=== 170224_213545
+   ----->    5   170224_213545  _____   
+token=== 0000
+token=== ggtree_mc_1.root
+ outputName is ---> skimed_170224_213545ggtree_mc_1.root
+Processed 0 events out of 217826
+Processed 10000 events out of 217826
+Processed 20000 events out of 217826
+Processed 30000 events out of 217826
+Processed 40000 events out of 217826
+Processed 50000 events out of 217826
+Processed 60000 events out of 217826
+Processed 70000 events out of 217826
+Processed 80000 events out of 217826
+Processed 90000 events out of 217826
+Processed 100000 events out of 217826
+Processed 110000 events out of 217826
+Processed 120000 events out of 217826
+Processed 130000 events out of 217826
+Processed 140000 events out of 217826
+Processed 150000 events out of 217826
+Processed 160000 events out of 217826
+Processed 170000 events out of 217826
+Processed 180000 events out of 217826
+Processed 190000 events out of 217826
+Processed 200000 events out of 217826
+Processed 210000 events out of 217826
+Here is the short Name   ------> /MC/ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/crab_ST_t-channel_antitop_4f_inclusiveDecays-v1/170224_213545/0000/ggtree_mc_101.root
+token=== 
+token=== MC
+token=== ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1
+token=== crab_ST_t-channel_antitop_4f_inclusiveDecays-v1
+token=== 170224_213545
+   ----->    5   170224_213545  _____   
+token=== 0000
+token=== ggtree_mc_101.root
+ outputName is ---> skimed_170224_213545ggtree_mc_101.root
+Processed 0 events out of 221373
+Processed 10000 events out of 221373
+Processed 20000 events out of 221373
+Processed 30000 events out of 221373
+Processed 40000 events out of 221373
+Processed 50000 events out of 221373
+Processed 60000 events out of 221373
+Processed 70000 events out of 221373
+Processed 80000 events out of 221373
+Processed 90000 events out of 221373
+Processed 100000 events out of 221373
+Processed 110000 events out of 221373
+Processed 120000 events out of 221373
+Processed 130000 events out of 221373
+Processed 140000 events out of 221373
+Processed 150000 events out of 221373
+Processed 160000 events out of 221373
+Processed 170000 events out of 221373
+Processed 180000 events out of 221373
+Processed 190000 events out of 221373
+Processed 200000 events out of 221373
+Processed 210000 events out of 221373
+Processed 220000 events out of 221373
+Here is the short Name   ------> /MC/ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/crab_ST_t-channel_antitop_4f_inclusiveDecays-v1/170224_213545/0000/ggtree_mc_11.root
+token=== 
+token=== MC
+token=== ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1
+token=== crab_ST_t-channel_antitop_4f_inclusiveDecays-v1
+token=== 170224_213545
+   ----->    5   170224_213545  _____   
+token=== 0000
+token=== ggtree_mc_11.root
+ outputName is ---> skimed_170224_213545ggtree_mc_11.root
+Processed 0 events out of 224913
+Processed 10000 events out of 224913
+Processed 20000 events out of 224913
+Processed 30000 events out of 224913
+Processed 40000 events out of 224913
+Processed 50000 events out of 224913
+Processed 60000 events out of 224913
+Processed 70000 events out of 224913
+Processed 80000 events out of 224913
+Processed 90000 events out of 224913
+Processed 100000 events out of 224913
+Processed 110000 events out of 224913
+Processed 120000 events out of 224913
+Processed 130000 events out of 224913
+Processed 140000 events out of 224913
+Processed 150000 events out of 224913
+Processed 160000 events out of 224913
+Processed 170000 events out of 224913
+Processed 180000 events out of 224913
+Processed 190000 events out of 224913
+Processed 200000 events out of 224913
+Processed 210000 events out of 224913
+Processed 220000 events out of 224913
+Here is the short Name   ------> /MC/ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/crab_ST_t-channel_antitop_4f_inclusiveDecays-v1/170224_213545/0000/ggtree_mc_111.root
+token=== 
+token=== MC
+token=== ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1
+token=== crab_ST_t-channel_antitop_4f_inclusiveDecays-v1
+token=== 170224_213545
+   ----->    5   170224_213545  _____   
+token=== 0000
+token=== ggtree_mc_111.root
+ outputName is ---> skimed_170224_213545ggtree_mc_111.root
+Processed 0 events out of 211884
+Processed 10000 events out of 211884
+Processed 20000 events out of 211884
+Processed 30000 events out of 211884
+Processed 40000 events out of 211884
+Processed 50000 events out of 211884
+Processed 60000 events out of 211884
+Processed 70000 events out of 211884
+Processed 80000 events out of 211884
+Processed 90000 events out of 211884
+Processed 100000 events out of 211884
+Processed 110000 events out of 211884
+Processed 120000 events out of 211884
+Processed 130000 events out of 211884
+Processed 140000 events out of 211884
+Processed 150000 events out of 211884
+Processed 160000 events out of 211884
+Processed 170000 events out of 211884
+Processed 180000 events out of 211884
+Processed 190000 events out of 211884
+Processed 200000 events out of 211884
+Processed 210000 events out of 211884
+Here is the short Name   ------> /MC/ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/crab_ST_t-channel_antitop_4f_inclusiveDecays-v1/170224_213545/0000/ggtree_mc_121.root
+token=== 
+token=== MC
+token=== ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1
+token=== crab_ST_t-channel_antitop_4f_inclusiveDecays-v1
+token=== 170224_213545
+   ----->    5   170224_213545  _____   
+token=== 0000
+token=== ggtree_mc_121.root
+ outputName is ---> skimed_170224_213545ggtree_mc_121.root
+Processed 0 events out of 210878
+Processed 10000 events out of 210878
+Processed 20000 events out of 210878
+Processed 30000 events out of 210878
+Processed 40000 events out of 210878
+Processed 50000 events out of 210878
+Processed 60000 events out of 210878
+Processed 70000 events out of 210878
+Processed 80000 events out of 210878
+Processed 90000 events out of 210878
+Processed 100000 events out of 210878
+Processed 110000 events out of 210878
+Processed 120000 events out of 210878
+Processed 130000 events out of 210878
+Processed 140000 events out of 210878
+Processed 150000 events out of 210878
+Processed 160000 events out of 210878
+Processed 170000 events out of 210878
+Processed 180000 events out of 210878
+Processed 190000 events out of 210878
+Processed 200000 events out of 210878
+Processed 210000 events out of 210878
+Here is the short Name   ------> /MC/ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/crab_ST_t-channel_antitop_4f_inclusiveDecays-v1/170224_213545/0000/ggtree_mc_131.root
+token=== 
+token=== MC
+token=== ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1
+token=== crab_ST_t-channel_antitop_4f_inclusiveDecays-v1
+token=== 170224_213545
+   ----->    5   170224_213545  _____   
+token=== 0000
+token=== ggtree_mc_131.root
+ outputName is ---> skimed_170224_213545ggtree_mc_131.root
+Processed 0 events out of 214148
+Processed 10000 events out of 214148
+Processed 20000 events out of 214148
+Processed 30000 events out of 214148
+Processed 40000 events out of 214148
+Processed 50000 events out of 214148
+Processed 60000 events out of 214148
+Processed 70000 events out of 214148
+Processed 80000 events out of 214148
+Processed 90000 events out of 214148
+Processed 100000 events out of 214148
+Processed 110000 events out of 214148
+Processed 120000 events out of 214148
+Processed 130000 events out of 214148
+Processed 140000 events out of 214148
+Processed 150000 events out of 214148
+Processed 160000 events out of 214148
+Processed 170000 events out of 214148
+Processed 180000 events out of 214148
+Processed 190000 events out of 214148
+Processed 200000 events out of 214148
+Processed 210000 events out of 214148
+Here is the short Name   ------> /MC/ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/crab_ST_t-channel_antitop_4f_inclusiveDecays-v1/170224_213545/0000/ggtree_mc_141.root
+token=== 
+token=== MC
+token=== ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1
+token=== crab_ST_t-channel_antitop_4f_inclusiveDecays-v1
+token=== 170224_213545
+   ----->    5   170224_213545  _____   
+token=== 0000
+token=== ggtree_mc_141.root
+ outputName is ---> skimed_170224_213545ggtree_mc_141.root
+Processed 0 events out of 144325
+Processed 10000 events out of 144325
+Processed 20000 events out of 144325
+Processed 30000 events out of 144325
+Processed 40000 events out of 144325
+Processed 50000 events out of 144325
+Processed 60000 events out of 144325
+Processed 70000 events out of 144325
+Processed 80000 events out of 144325
+Processed 90000 events out of 144325
+Processed 100000 events out of 144325
+Processed 110000 events out of 144325
+Processed 120000 events out of 144325
+Processed 130000 events out of 144325
+Processed 140000 events out of 144325
+Here is the short Name   ------> /MC/ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/crab_ST_t-channel_antitop_4f_inclusiveDecays-v1/170224_213545/0000/ggtree_mc_151.root
+token=== 
+token=== MC
+token=== ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1
+token=== crab_ST_t-channel_antitop_4f_inclusiveDecays-v1
+token=== 170224_213545
+   ----->    5   170224_213545  _____   
+token=== 0000
+token=== ggtree_mc_151.root
+ outputName is ---> skimed_170224_213545ggtree_mc_151.root
+Processed 0 events out of 179396
+Processed 10000 events out of 179396
+Processed 20000 events out of 179396
+Processed 30000 events out of 179396
+Processed 40000 events out of 179396
+Processed 50000 events out of 179396
+Processed 60000 events out of 179396
+Processed 70000 events out of 179396
+Processed 80000 events out of 179396
+Processed 90000 events out of 179396
+Processed 100000 events out of 179396
+Processed 110000 events out of 179396
+Processed 120000 events out of 179396
+Processed 130000 events out of 179396
+Processed 140000 events out of 179396
+Processed 150000 events out of 179396
+Processed 160000 events out of 179396
+Processed 170000 events out of 179396
+Here is the short Name   ------> /MC/ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/crab_ST_t-channel_antitop_4f_inclusiveDecays-v1/170224_213545/0000/ggtree_mc_161.root
+token=== 
+token=== MC
+token=== ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1
+token=== crab_ST_t-channel_antitop_4f_inclusiveDecays-v1
+token=== 170224_213545
+   ----->    5   170224_213545  _____   
+token=== 0000
+token=== ggtree_mc_161.root
+ outputName is ---> skimed_170224_213545ggtree_mc_161.root
+Processed 0 events out of 203061
+Processed 10000 events out of 203061
+Processed 20000 events out of 203061
+Processed 30000 events out of 203061
+Processed 40000 events out of 203061
+Processed 50000 events out of 203061
+Processed 60000 events out of 203061
+Processed 70000 events out of 203061
+Processed 80000 events out of 203061
+Processed 90000 events out of 203061
+Processed 100000 events out of 203061
+Processed 110000 events out of 203061
+Processed 120000 events out of 203061
+Processed 130000 events out of 203061
+Processed 140000 events out of 203061
+Processed 150000 events out of 203061
+Processed 160000 events out of 203061
+Processed 170000 events out of 203061
+Processed 180000 events out of 203061
+Processed 190000 events out of 203061
+Processed 200000 events out of 203061
+Here is the short Name   ------> /MC/ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/crab_ST_t-channel_antitop_4f_inclusiveDecays-v1/170224_213545/0000/ggtree_mc_171.root
+token=== 
+token=== MC
+token=== ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1
+token=== crab_ST_t-channel_antitop_4f_inclusiveDecays-v1
+token=== 170224_213545
+   ----->    5   170224_213545  _____   
+token=== 0000
+token=== ggtree_mc_171.root
+ outputName is ---> skimed_170224_213545ggtree_mc_171.root
+Processed 0 events out of 185362
+Processed 10000 events out of 185362
+Processed 20000 events out of 185362
+Processed 30000 events out of 185362
+Processed 40000 events out of 185362
+Processed 50000 events out of 185362
+Processed 60000 events out of 185362
+Processed 70000 events out of 185362
+Processed 80000 events out of 185362
+Processed 90000 events out of 185362
+Processed 100000 events out of 185362
+Processed 110000 events out of 185362
+Processed 120000 events out of 185362
+Processed 130000 events out of 185362
+Processed 140000 events out of 185362
+Processed 150000 events out of 185362
+Processed 160000 events out of 185362
+Processed 170000 events out of 185362
+Processed 180000 events out of 185362
+Here is the short Name   ------> /MC/ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/crab_ST_t-channel_antitop_4f_inclusiveDecays-v1/170224_213545/0000/ggtree_mc_181.root
+token=== 
+token=== MC
+token=== ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1
+token=== crab_ST_t-channel_antitop_4f_inclusiveDecays-v1
+token=== 170224_213545
+   ----->    5   170224_213545  _____   
+token=== 0000
+token=== ggtree_mc_181.root
+ outputName is ---> skimed_170224_213545ggtree_mc_181.root
+Processed 0 events out of 183279
+Processed 10000 events out of 183279
+Processed 20000 events out of 183279
+Processed 30000 events out of 183279
+Processed 40000 events out of 183279
+Processed 50000 events out of 183279
+Processed 60000 events out of 183279
+Processed 70000 events out of 183279
+Processed 80000 events out of 183279
+Processed 90000 events out of 183279
+Processed 100000 events out of 183279
+Processed 110000 events out of 183279
+Processed 120000 events out of 183279
+Processed 130000 events out of 183279
+Processed 140000 events out of 183279
+Processed 150000 events out of 183279
+Processed 160000 events out of 183279
+Processed 170000 events out of 183279
+Processed 180000 events out of 183279
+Here is the short Name   ------> /MC/ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/crab_ST_t-channel_antitop_4f_inclusiveDecays-v1/170224_213545/0000/ggtree_mc_191.root
+token=== 
+token=== MC
+token=== ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1
+token=== crab_ST_t-channel_antitop_4f_inclusiveDecays-v1
+token=== 170224_213545
+   ----->    5   170224_213545  _____   
+token=== 0000
+token=== ggtree_mc_191.root
+ outputName is ---> skimed_170224_213545ggtree_mc_191.root
+Processed 0 events out of 159476
+Processed 10000 events out of 159476
+Processed 20000 events out of 159476
+Processed 30000 events out of 159476
+Processed 40000 events out of 159476
+Processed 50000 events out of 159476
+Processed 60000 events out of 159476
+Processed 70000 events out of 159476
+Processed 80000 events out of 159476
+Processed 90000 events out of 159476
+Processed 100000 events out of 159476
+Processed 110000 events out of 159476
+Processed 120000 events out of 159476
+Processed 130000 events out of 159476
+Processed 140000 events out of 159476
+Processed 150000 events out of 159476
+Here is the short Name   ------> /MC/ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/crab_ST_t-channel_antitop_4f_inclusiveDecays-v1/170224_213545/0000/ggtree_mc_201.root
+token=== 
+token=== MC
+token=== ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1
+token=== crab_ST_t-channel_antitop_4f_inclusiveDecays-v1
+token=== 170224_213545
+   ----->    5   170224_213545  _____   
+token=== 0000
+token=== ggtree_mc_201.root
+ outputName is ---> skimed_170224_213545ggtree_mc_201.root
+Processed 0 events out of 83726
+Processed 10000 events out of 83726
+Processed 20000 events out of 83726
+Processed 30000 events out of 83726
+Processed 40000 events out of 83726
+Processed 50000 events out of 83726
+Processed 60000 events out of 83726
+Processed 70000 events out of 83726
+Processed 80000 events out of 83726
+Here is the short Name   ------> /MC/ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/crab_ST_t-channel_antitop_4f_inclusiveDecays-v1/170224_213545/0000/ggtree_mc_21.root
+token=== 
+token=== MC
+token=== ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1
+token=== crab_ST_t-channel_antitop_4f_inclusiveDecays-v1
+token=== 170224_213545
+   ----->    5   170224_213545  _____   
+token=== 0000
+token=== ggtree_mc_21.root
+ outputName is ---> skimed_170224_213545ggtree_mc_21.root
+Processed 0 events out of 156901
+Processed 10000 events out of 156901
+Processed 20000 events out of 156901
+Processed 30000 events out of 156901
+Processed 40000 events out of 156901
+Processed 50000 events out of 156901
+Processed 60000 events out of 156901
+Processed 70000 events out of 156901
+Processed 80000 events out of 156901
+Processed 90000 events out of 156901
+Processed 100000 events out of 156901
+Processed 110000 events out of 156901
+Processed 120000 events out of 156901
+Processed 130000 events out of 156901
+Processed 140000 events out of 156901
+Processed 150000 events out of 156901
+Here is the short Name   ------> /MC/ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/crab_ST_t-channel_antitop_4f_inclusiveDecays-v1/170224_213545/0000/ggtree_mc_31.root
+token=== 
+token=== MC
+token=== ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1
+token=== crab_ST_t-channel_antitop_4f_inclusiveDecays-v1
+token=== 170224_213545
+   ----->    5   170224_213545  _____   
+token=== 0000
+token=== ggtree_mc_31.root
+ outputName is ---> skimed_170224_213545ggtree_mc_31.root
+Processed 0 events out of 179435
+Processed 10000 events out of 179435
+Processed 20000 events out of 179435
+Processed 30000 events out of 179435
+Processed 40000 events out of 179435
+Processed 50000 events out of 179435
+Processed 60000 events out of 179435
+Processed 70000 events out of 179435
+Processed 80000 events out of 179435
+Processed 90000 events out of 179435
+Processed 100000 events out of 179435
+Processed 110000 events out of 179435
+Processed 120000 events out of 179435
+Processed 130000 events out of 179435
+Processed 140000 events out of 179435
+Processed 150000 events out of 179435
+Processed 160000 events out of 179435
+Processed 170000 events out of 179435
+Here is the short Name   ------> /MC/ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/crab_ST_t-channel_antitop_4f_inclusiveDecays-v1/170224_213545/0000/ggtree_mc_41.root
+token=== 
+token=== MC
+token=== ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1
+token=== crab_ST_t-channel_antitop_4f_inclusiveDecays-v1
+token=== 170224_213545
+   ----->    5   170224_213545  _____   
+token=== 0000
+token=== ggtree_mc_41.root
+ outputName is ---> skimed_170224_213545ggtree_mc_41.root
+Processed 0 events out of 174021
+Processed 10000 events out of 174021
+Processed 20000 events out of 174021
+Processed 30000 events out of 174021
+Processed 40000 events out of 174021
+Processed 50000 events out of 174021
+Processed 60000 events out of 174021
+Processed 70000 events out of 174021
+Processed 80000 events out of 174021
+Processed 90000 events out of 174021
+Processed 100000 events out of 174021
+Processed 110000 events out of 174021
+Processed 120000 events out of 174021
+Processed 130000 events out of 174021
+Processed 140000 events out of 174021
+Processed 150000 events out of 174021
+Processed 160000 events out of 174021
+Processed 170000 events out of 174021
+Here is the short Name   ------> /MC/ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/crab_ST_t-channel_antitop_4f_inclusiveDecays-v1/170224_213545/0000/ggtree_mc_51.root
+token=== 
+token=== MC
+token=== ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1
+token=== crab_ST_t-channel_antitop_4f_inclusiveDecays-v1
+token=== 170224_213545
+   ----->    5   170224_213545  _____   
+token=== 0000
+token=== ggtree_mc_51.root
+ outputName is ---> skimed_170224_213545ggtree_mc_51.root
+Processed 0 events out of 226525
+Processed 10000 events out of 226525
+Processed 20000 events out of 226525
+Processed 30000 events out of 226525
+Processed 40000 events out of 226525
+Processed 50000 events out of 226525
+Processed 60000 events out of 226525
+Processed 70000 events out of 226525
+Processed 80000 events out of 226525
+Processed 90000 events out of 226525
+Processed 100000 events out of 226525
+Processed 110000 events out of 226525
+Processed 120000 events out of 226525
+Processed 130000 events out of 226525
+Processed 140000 events out of 226525
+Processed 150000 events out of 226525
+Processed 160000 events out of 226525
+Processed 170000 events out of 226525
+Processed 180000 events out of 226525
+Processed 190000 events out of 226525
+Processed 200000 events out of 226525
+Processed 210000 events out of 226525
+Processed 220000 events out of 226525
+Here is the short Name   ------> /MC/ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/crab_ST_t-channel_antitop_4f_inclusiveDecays-v1/170224_213545/0000/ggtree_mc_61.root
+token=== 
+token=== MC
+token=== ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1
+token=== crab_ST_t-channel_antitop_4f_inclusiveDecays-v1
+token=== 170224_213545
+   ----->    5   170224_213545  _____   
+token=== 0000
+token=== ggtree_mc_61.root
+ outputName is ---> skimed_170224_213545ggtree_mc_61.root
+Processed 0 events out of 170405
+Processed 10000 events out of 170405
+Processed 20000 events out of 170405
+Processed 30000 events out of 170405
+Processed 40000 events out of 170405
+Processed 50000 events out of 170405
+Processed 60000 events out of 170405
+Processed 70000 events out of 170405
+Processed 80000 events out of 170405
+Processed 90000 events out of 170405
+Processed 100000 events out of 170405
+Processed 110000 events out of 170405
+Processed 120000 events out of 170405
+Processed 130000 events out of 170405
+Processed 140000 events out of 170405
+Processed 150000 events out of 170405
+Processed 160000 events out of 170405
+Processed 170000 events out of 170405
+Here is the short Name   ------> /MC/ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/crab_ST_t-channel_antitop_4f_inclusiveDecays-v1/170224_213545/0000/ggtree_mc_71.root
+token=== 
+token=== MC
+token=== ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1
+token=== crab_ST_t-channel_antitop_4f_inclusiveDecays-v1
+token=== 170224_213545
+   ----->    5   170224_213545  _____   
+token=== 0000
+token=== ggtree_mc_71.root
+ outputName is ---> skimed_170224_213545ggtree_mc_71.root
+Processed 0 events out of 160271
+Processed 10000 events out of 160271
+Processed 20000 events out of 160271
+Processed 30000 events out of 160271
+Processed 40000 events out of 160271
+Processed 50000 events out of 160271
+Processed 60000 events out of 160271
+Processed 70000 events out of 160271
+Processed 80000 events out of 160271
+Processed 90000 events out of 160271
+Processed 100000 events out of 160271
+Processed 110000 events out of 160271
+Processed 120000 events out of 160271
+Processed 130000 events out of 160271
+Processed 140000 events out of 160271
+Processed 150000 events out of 160271
+Processed 160000 events out of 160271
+Here is the short Name   ------> /MC/ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/crab_ST_t-channel_antitop_4f_inclusiveDecays-v1/170224_213545/0000/ggtree_mc_81.root
+token=== 
+token=== MC
+token=== ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1
+token=== crab_ST_t-channel_antitop_4f_inclusiveDecays-v1
+token=== 170224_213545
+   ----->    5   170224_213545  _____   
+token=== 0000
+token=== ggtree_mc_81.root
+ outputName is ---> skimed_170224_213545ggtree_mc_81.root
+Processed 0 events out of 183978
+Processed 10000 events out of 183978
+Processed 20000 events out of 183978
+Processed 30000 events out of 183978
+Processed 40000 events out of 183978
+Processed 50000 events out of 183978
+Processed 60000 events out of 183978
+Processed 70000 events out of 183978
+Processed 80000 events out of 183978
+Processed 90000 events out of 183978
+Processed 100000 events out of 183978
+Processed 110000 events out of 183978
+Processed 120000 events out of 183978
+Processed 130000 events out of 183978
+Processed 140000 events out of 183978
+Processed 150000 events out of 183978
+Processed 160000 events out of 183978
+Processed 170000 events out of 183978
+Processed 180000 events out of 183978
+Here is the short Name   ------> /MC/ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1/crab_ST_t-channel_antitop_4f_inclusiveDecays-v1/170224_213545/0000/ggtree_mc_91.root
+token=== 
+token=== MC
+token=== ST_t-channel_antitop_4f_inclusiveDecays_13TeV-powhegV2-madspin-pythia8_TuneCUETP8M1
+token=== crab_ST_t-channel_antitop_4f_inclusiveDecays-v1
+token=== 170224_213545
+   ----->    5   170224_213545  _____   
+token=== 0000
+token=== ggtree_mc_91.root
+ outputName is ---> skimed_170224_213545ggtree_mc_91.root
+Processed 0 events out of 222923
+Processed 10000 events out of 222923
+Processed 20000 events out of 222923
+Processed 30000 events out of 222923
+Processed 40000 events out of 222923
+Processed 50000 events out of 222923
+Processed 60000 events out of 222923
+Processed 70000 events out of 222923
+Processed 80000 events out of 222923
+Processed 90000 events out of 222923
+Processed 100000 events out of 222923
+Processed 110000 events out of 222923
+Processed 120000 events out of 222923
+Processed 130000 events out of 222923
+Processed 140000 events out of 222923
+Processed 150000 events out of 222923
+Processed 160000 events out of 222923
+Processed 170000 events out of 222923
+Processed 180000 events out of 222923
+Processed 190000 events out of 222923
+Processed 200000 events out of 222923
+Processed 210000 events out of 222923
+Processed 220000 events out of 222923
+abdollahMC1.root
+hadd Target file: abdollahMC1.root
+hadd compression setting for all ouput: 1
+hadd Source file 1: skimed_170224_213545ggtree_mc_1.root
+hadd Source file 2: skimed_170224_213545ggtree_mc_101.root
+hadd Source file 3: skimed_170224_213545ggtree_mc_11.root
+hadd Source file 4: skimed_170224_213545ggtree_mc_111.root
+hadd Source file 5: skimed_170224_213545ggtree_mc_121.root
+hadd Source file 6: skimed_170224_213545ggtree_mc_131.root
+hadd Source file 7: skimed_170224_213545ggtree_mc_141.root
+hadd Source file 8: skimed_170224_213545ggtree_mc_151.root
+hadd Source file 9: skimed_170224_213545ggtree_mc_161.root
+hadd Source file 10: skimed_170224_213545ggtree_mc_171.root
+hadd Source file 11: skimed_170224_213545ggtree_mc_181.root
+hadd Source file 12: skimed_170224_213545ggtree_mc_191.root
+hadd Source file 13: skimed_170224_213545ggtree_mc_201.root
+hadd Source file 14: skimed_170224_213545ggtree_mc_21.root
+hadd Source file 15: skimed_170224_213545ggtree_mc_31.root
+hadd Source file 16: skimed_170224_213545ggtree_mc_41.root
+hadd Source file 17: skimed_170224_213545ggtree_mc_51.root
+hadd Source file 18: skimed_170224_213545ggtree_mc_61.root
+hadd Source file 19: skimed_170224_213545ggtree_mc_71.root
+hadd Source file 20: skimed_170224_213545ggtree_mc_81.root
+hadd Source file 21: skimed_170224_213545ggtree_mc_91.root
+hadd Target path: abdollahMC1.root:/
+Done execution ...
+finished at Fri Mar 17 00:00:40 CDT 2017

@@ -1,0 +1,336 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//   Compiling the code:   ./Make.sh ZTT_XSection.cc
+//   Running the code:     ./ZTT_XSection.exe OutPut.root   Input.root
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#include "TreeReader.h"
+#include "WeightCalculator.h"
+#include "TLorentzVector.h"
+#include <string> //remove space for successful compilation
+#include <ostream> //remove space for successful compilation
+
+int  main(int argc, char** argv) {
+  using namespace std;
+
+  std::vector<string> input;
+  for (int f = 1; f < argc; f++) {
+    input.push_back(*(argv + f));
+
+    cout << "\n INPUT NAME IS:   " << input[f - 1] << "\n";
+  }
+
+
+  for(int k=0; k<input.size(); k++ ) {
+
+
+    myMap1 = new std::map<std::string, TH1F*>();
+    myMap2 = new map<string, TH2F*>();
+
+    TFile *f_Double = TFile::Open(input[k].c_str());
+    cout << "\n  Now is running on ------->   " << std::string(f_Double->GetName()) << "\n";
+        
+    TFile * myFile = TFile::Open(f_Double->GetName());
+    TH1F * HistoTot = (TH1F*) myFile->Get("hcount");
+        
+    //        TTree *Run_Tree = (TTree*) f_Double->Get("ggNtuplizer/EventTree");
+    TTree *Run_Tree = (TTree*) f_Double->Get("EventTree");    
+
+    std::string output = input[k];
+    size_t root = output.find(".root");
+    output.erase(root);
+    output += "_controlPlot.root";
+    cout << "\n\n\n OUTPUT NAME IS:    " << output << endl;     //PRINTING THE OUTPUT FILE NAME
+    TFile *fout = TFile::Open(output.c_str(), "RECREATE");
+    TH1F* h_mass  = new TH1F("mass","",20,70,110);
+    
+    string Charge[2] = {"opposite_sign","same_sign"};
+    string totcharge[2] = {"totCharge==0","totCharge!=0"};
+    string taumucharge[2] = {"totCharge==0_and_mucharge==0","totCharge==0_and_mucharge_not_equal_to_zero_i.e_signal_region"};
+    /////////////////////////   General Info
+    Run_Tree->SetBranchAddress("isData", &isData);
+    Run_Tree->SetBranchAddress("run", &run);
+    Run_Tree->SetBranchAddress("lumis", &lumis);
+    Run_Tree->SetBranchAddress("event", &event);
+    Run_Tree->SetBranchAddress("genWeight",&genWeight);
+    Run_Tree->SetBranchAddress("HLTEleMuX", &HLTEleMuX);
+    Run_Tree->SetBranchAddress("puTrue", &puTrue);        
+    
+    
+    /////////////////////////   Tau Info
+    Run_Tree->SetBranchAddress("nTau", &nTau);
+    Run_Tree->SetBranchAddress("tauPt"  ,&tauPt);
+    Run_Tree->SetBranchAddress("tauEta"  ,&tauEta);
+    Run_Tree->SetBranchAddress("tauPhi"  ,&tauPhi);
+    Run_Tree->SetBranchAddress("tauMass"  ,&tauMass);
+    Run_Tree->SetBranchAddress("tauCharge"  ,&tauCharge);
+    Run_Tree->SetBranchAddress("taupfTausDiscriminationByDecayModeFinding", &taupfTausDiscriminationByDecayModeFinding);
+    Run_Tree->SetBranchAddress("tauByTightMuonRejection3", &tauByTightMuonRejection3);
+    Run_Tree->SetBranchAddress("tauByLooseMuonRejection3", &tauByLooseMuonRejection3);
+    Run_Tree->SetBranchAddress("tauByMVA6TightElectronRejection"  ,&tauByMVA6TightElectronRejection);
+    Run_Tree->SetBranchAddress("tauByLooseCombinedIsolationDeltaBetaCorr3Hits",&tauByLooseCombinedIsolationDeltaBetaCorr3Hits);
+    Run_Tree->SetBranchAddress("tauByMediumCombinedIsolationDeltaBetaCorr3Hits",&tauByMediumCombinedIsolationDeltaBetaCorr3Hits);
+    Run_Tree->SetBranchAddress("tauByMVA6LooseElectronRejection", &tauByMVA6LooseElectronRejection);
+    Run_Tree->SetBranchAddress("tauDxy",&tauDxy);
+    Run_Tree->SetBranchAddress("tauByMediumIsolationMVArun2v1DBoldDMwLT", &tauByMediumIsolationMVArun2v1DBoldDMwLT);
+    Run_Tree->SetBranchAddress("tauByLooseIsolationMVArun2v1DBoldDMwLT", &tauByLooseIsolationMVArun2v1DBoldDMwLT);
+    /////////////////////////   Mu Info
+    Run_Tree->SetBranchAddress("nMu", &nMu);
+    Run_Tree->SetBranchAddress("eleEn", &eleEn);
+    Run_Tree->SetBranchAddress("muEn", &muEn);
+    Run_Tree->SetBranchAddress("tauEnergy", &tauEnergy);
+    Run_Tree->SetBranchAddress("muPt"  ,&muPt);
+    Run_Tree->SetBranchAddress("muEta"  ,&muEta);
+    Run_Tree->SetBranchAddress("muPhi"  ,&muPhi);
+    Run_Tree->SetBranchAddress("muIsoTrk", &muIsoTrk);
+    Run_Tree->SetBranchAddress("muCharge",&muCharge);
+    //  Run_Tree->SetBranchAddress("muIsMediumID",&muIsMediumID);
+    //Run_Tree->SetBranchAddress("muIsLooseID",&muIsLooseID);
+    Run_Tree->SetBranchAddress("muPFChIso", &muPFChIso);
+    Run_Tree->SetBranchAddress("muPFPhoIso", &muPFPhoIso);
+    Run_Tree->SetBranchAddress("muPFNeuIso", &muPFNeuIso);
+    Run_Tree->SetBranchAddress("muPFPUIso", &muPFPUIso);
+    Run_Tree->SetBranchAddress("muD0",&muD0);
+    Run_Tree->SetBranchAddress("muDz",&muDz);
+    Run_Tree->SetBranchAddress("muIDbit", &muIDbit);
+    
+    /////////////////////////   Ele Info
+    Run_Tree->SetBranchAddress("nEle", &nEle);
+    Run_Tree->SetBranchAddress("elePt"  ,&elePt);
+    Run_Tree->SetBranchAddress("eleEta"  ,&eleEta);
+    Run_Tree->SetBranchAddress("elePhi"  ,&elePhi);
+    Run_Tree->SetBranchAddress("elePFChIso", &elePFChIso);
+    Run_Tree->SetBranchAddress("eleIDMVA", &eleIDMVA);
+    Run_Tree->SetBranchAddress("eleCharge",&eleCharge);
+    Run_Tree->SetBranchAddress("eleSCEta",&eleSCEta);
+    Run_Tree->SetBranchAddress("elePFChIso", &elePFChIso);
+    Run_Tree->SetBranchAddress("elePFPhoIso", &elePFPhoIso);
+    Run_Tree->SetBranchAddress("elePFNeuIso", &elePFNeuIso);
+    Run_Tree->SetBranchAddress("elePFPUIso", &elePFPUIso);
+    Run_Tree->SetBranchAddress("eleD0",&eleD0);
+    Run_Tree->SetBranchAddress("eleDz",&eleDz);
+    Run_Tree->SetBranchAddress("eleMissHits", &eleMissHits);
+    Run_Tree->SetBranchAddress("eleConvVeto", &eleConvVeto);
+    /////////////////////////   Jet Info
+    Run_Tree->SetBranchAddress("nJet",&nJet);
+    Run_Tree->SetBranchAddress("jetPt",&jetPt);
+    Run_Tree->SetBranchAddress("jetEta",&jetEta);
+    Run_Tree->SetBranchAddress("jetPhi",&jetPhi);
+    Run_Tree->SetBranchAddress("jetEn",&jetEn);
+    //  Run_Tree->SetBranchAddress("jetpfCombinedInclusiveSecondaryVertexV2BJetTags",&jetpfCombinedInclusiveSecondaryVertexV2BJetTags);
+    Run_Tree->SetBranchAddress("jetCSV2BJetTags",&jetCSV2BJetTags);
+    Run_Tree->SetBranchAddress("mcMomPID" ,&mcMomPID);
+    Run_Tree->SetBranchAddress("mcGMomPID" ,&mcGMomPID);
+    Run_Tree->SetBranchAddress("nMC" ,&nMC);
+    Run_Tree->SetBranchAddress("mcPID", &mcPID);
+    Run_Tree->SetBranchAddress("mcPt", &mcPt);
+    Run_Tree->SetBranchAddress("mcEta", &mcEta);
+    Run_Tree->SetBranchAddress("mcPhi", &mcPhi);
+    Run_Tree->SetBranchAddress("mcE", &mcE);
+    Run_Tree->SetBranchAddress("mcMomPt", &mcMomPt);
+    Run_Tree->SetBranchAddress("mcMomEta", &mcMomEta);
+    Run_Tree->SetBranchAddress("mcMomPhi", &mcMomPhi);
+    Run_Tree->SetBranchAddress("mcMomMass", &mcMomMass);
+    Run_Tree->SetBranchAddress("mcHadronPt", &mcHadronPt);
+    Run_Tree->SetBranchAddress("mcHadronEta", &mcHadronEta);
+    Run_Tree->SetBranchAddress("mcHadronPhi", &mcHadronPhi);
+    Run_Tree->SetBranchAddress("mcHadronMass", &mcHadronMass);
+    Run_Tree->SetBranchAddress("mcHadronE", &mcHadronE);
+    Run_Tree->SetBranchAddress("mcHadronGMomPID", &mcHadronGMomPID);
+    Run_Tree->SetBranchAddress("mcHadronMomPID", &mcHadronMomPID);
+    Run_Tree->SetBranchAddress("mcHadronMomPt", &mcHadronMomPt);
+    Run_Tree->SetBranchAddress("mcHadronMomMass", &mcHadronMomMass);
+    Run_Tree->SetBranchAddress("mcHadronMomEta", &mcHadronMomEta);
+    Run_Tree->SetBranchAddress("mcHadronMomPhi", &mcHadronMomPhi);
+    Run_Tree->SetBranchAddress("mcStatusFlag", &mcStatusFlag);
+    Run_Tree->SetBranchAddress("mcMass", &mcMass);
+  
+    
+    /////////////////////////   MET Info
+    Run_Tree->SetBranchAddress("pfMET",&pfMET);
+    Run_Tree->SetBranchAddress("pfMETPhi",&pfMETPhi);
+    
+    
+    Int_t nentries_wtn = (Int_t) Run_Tree->GetEntries();
+    
+    cout<<"nentries_wtn====" << nentries_wtn << "\n";
+
+
+    TFile * PUData= TFile::Open("dataMoriondPU.root");
+    TH1F * HistoPUData= (TH1F *) PUData->Get("pileup");
+    HistoPUData->Scale(1.0/HistoPUData->Integral());
+    
+    TFile * PUMC= TFile::Open("mcMoriondPU.root");
+    TH1F * HistoPUMC= (TH1F *) PUMC->Get("pileup");
+    HistoPUMC->Scale(1.0/HistoPUMC->Integral());
+    
+
+    for ( Int_t i = 0; i < nentries_wtn; i++) {
+  //  for ( Int_t i = 0; i < 1000000; i++) { 
+      Run_Tree->GetEntry(i);
+
+      if (i % 1000 == 0) fprintf(stdout, "\r  Processed events: %8d of %8d ", i, nentries_wtn);
+    
+      bool PassTrigger =   (Muon) ? (HLTEleMuX >> 15 & 1) : (HLTEleMuX >> 34 & 1);
+      //      if(!PassTrigger) continue;                                                                                                            
+      
+      int count_bjet(0);
+      for (int ijet= 0 ; ijet < nJet ; ijet++){
+	if (jetPt->at(ijet) > 20 && fabs(jetEta->at(ijet)) < 2.5 && jetCSV2BJetTags->at(ijet) > 0.679){
+	  count_bjet +=1;
+	  break;
+	}
+      }
+      //      if(count_bjet) continue; 
+      
+      float LumiWeight = 1;
+      float GetGenWeight=1;
+      float PUWeight = 1;
+      if (!isData) {
+	if (HistoTot) LumiWeight = weightCalc(HistoTot, input[k]);
+	  GetGenWeight=genWeight;
+	  int puNUmmc=int(puTrue->at(0)*10);
+	  int puNUmdata=int(puTrue->at(0)*10);
+	  float PUMC_=HistoPUMC->GetBinContent(puNUmmc+1);
+	  float PUData_=HistoPUData->GetBinContent(puNUmdata+1);
+	  if (PUMC_ ==0)
+	    cout<<"PUMC_ is zero!!! & num pileup= "<< puTrue->at(0)<<"\n";
+	  else
+	    PUWeight= PUData_/PUMC_;
+      }
+      
+      double weight = GetGenWeight*PUWeight*LumiWeight;
+      cout << "GetGenWeight = " << GetGenWeight << "\t" << "PUWeight= " << PUWeight << "\t" << "LumiWeight= " << LumiWeight << endl;
+
+      ///////////////////////////////////////////////
+      //Important Analysis Loop Will Happen Here!!!//
+      ///////////////////////////////////////////////
+      
+      bool firstMuon(true);
+      std::vector<int> vec_mu, vec_tau;
+
+      for  (int imu=0 ; imu < nMu; imu++){
+	bool mupt = (firstMuon) ? (muPt->at(imu) >18) : (muPt->at(imu) >9);
+	UShort_t id = (muIDbit->at(imu) >> 1 & 1);
+	float IsoMu=muPFChIso->at(imu)/muPt->at(imu);
+	if ( (muPFNeuIso->at(imu) + muPFPhoIso->at(imu) - 0.5* muPFPUIso->at(imu) )  > 0.0)
+	  IsoMu= ( muPFChIso->at(imu) + muPFNeuIso->at(imu) + muPFPhoIso->at(imu) - 0.5* muPFPUIso->at(imu))/muPt->at(imu);
+
+	if(mupt && id && fabs(muEta->at(imu)) <2.4 && IsoMu <0.3) {
+	  firstMuon = false;
+	  vec_mu.push_back(imu);
+	}
+      }
+      
+       
+      for  (int itau=0 ; itau < nTau; itau++) {
+	
+	/*	if(tauPt->at(itau) < 20) continue;
+	if(fabs(tauEta->at(itau)) > 2.3) continue;
+	if(tauByMVA6LooseElectronRejection->at(itau) ==0) continue;
+	if(tauByTightMuonRejection3->at(itau) ==0) continue;
+	//if(tauByLooseCombinedIsolationDeltaBetaCorr3Hits->at(itau) ==0) continue;
+	if(taupfTausDiscriminationByDecayModeFinding->at(itau) ==0) continue;
+	if(tauByLooseIsolationMVArun2v1DBoldDMwLT->at(itau) ==0 ) continue;*/
+	if(tauPt->at(itau) > 20 && fabs(tauEta->at(itau)) < 2.3 && tauByMVA6LooseElectronRejection->at(itau) !=0 && tauByTightMuonRejection3->at(itau) !=0 && taupfTausDiscriminationByDecayModeFinding->at(itau) !=0 && tauByLooseIsolationMVArun2v1DBoldDMwLT->at(itau) !=0) 
+	  vec_tau.push_back(itau);
+      }
+      
+      bool charge(false), samesign(false), oppositesign(false);
+      charge = muCharge->at(vec_mu[0])*muCharge->at(vec_mu[1]) >0;
+      samesign = charge ? true : false;
+      oppositesign = charge ? false : true;
+      bool mucharge[2] = {oppositesign, samesign};
+      bool zerojet = vec_tau.size() ==0;
+      bool onejet = vec_tau.size() ==1;
+      bool twojet = vec_tau.size() ==2;
+      bool jet[3] = {zerojet, onejet, twojet};
+      std::string Jet[3] = {"zero_tau_jet_region", "one_tau_jet_region", "two_tau_jet_region"};
+      TLorentzVector m1,m2,M;
+      m1.SetPtEtaPhiE(muPt->at(vec_mu[0]),muEta->at(vec_mu[0]),muPhi->at(vec_mu[0]),muEn->at(vec_mu[0]));
+      m2.SetPtEtaPhiE(muPt->at(vec_mu[1]),muEta->at(vec_mu[1]),muPhi->at(vec_mu[1]),muEn->at(vec_mu[1]));
+      h_mass->Fill((m1+m2).M(),weight);
+      M= m1+m2;
+      
+      for(int i=0; i<2; i++) {
+	if(!mucharge[i]) continue;
+	/*	for(int j=0; j<3; j++ ){
+	  if(!jet[j]) continue;
+	  std::string title = Charge[i]+"_in_"+Jet[j];*/
+	std::string title = Charge[i]+"region";
+	plotFill("InvariantMass_of_muon_pair_with_"+title,M.M(),20,70,110,weight);
+	plotFill("pt_distribution_of_Leading_#mu_with_"+title,muPt->at(vec_mu[0]),50,0,100,weight);
+	plotFill("pt_distribution_of_SubLeading_#mu_with_"+title,muPt->at(vec_mu[1]),50,0,100,weight);
+	plotFill("eta_distribution_of_Leading_#mu_with_"+title,muEta->at(vec_mu[0]),20,-2.4,2.4,weight);
+	plotFill("eta_distribution_of_SubLeading_#mu_with_"+title,muEta->at(vec_mu[1]),20,-2.4,2.4,weight);
+      }
+      
+      if(vec_tau.size() >1) {
+	TLorentzVector t1,t2,T,HH;
+	t1.SetPtEtaPhiE(tauPt->at(vec_tau[0]),tauEta->at(vec_tau[0]),tauPhi->at(vec_tau[0]),tauEnergy->at(vec_tau[0]));
+	t2.SetPtEtaPhiE(tauPt->at(vec_tau[1]),tauEta->at(vec_tau[1]),tauPhi->at(vec_tau[1]),tauEnergy->at(vec_tau[1]));
+	T= t1+t2;
+	HH = T+M;
+	
+	charge = tauCharge->at(vec_tau[0])*tauCharge->at(vec_tau[1]) >0;
+	samesign = charge ? true : false;
+	oppositesign = charge ? false : true;
+	bool taucharge[2] = {oppositesign, samesign};
+	
+	
+	for(int i=0; i<2; i++) {
+	  if(!taucharge[i]) continue;
+	  std::string title = Charge[i]+"_region";
+	  plotFill("InvariantMass_of_tau_pair_with_"+title,T.M(),30,50,110,weight);
+	  plotFill("pt_distribution_of_Leading_#tau_with_"+title,tauPt->at(vec_tau[0]),75,0,150,weight);
+	  plotFill("pt_distribution_of_SubLeading_#tau_with_"+title,tauPt->at(vec_tau[1]),75,0,150,weight);
+	  plotFill("eta_distribution_of_Leading_#tau_with_"+title,tauEta->at(vec_tau[0]),20,-2.4,2.4,weight);
+	  plotFill("eta_distribution_of_SubLeading_#tau_with_"+title,tauEta->at(vec_tau[1]),20,-2.4,2.4,weight);
+	}
+	
+	
+	bool taumuCharge = (muCharge->at(vec_mu[0])+muCharge->at(vec_mu[1]) + tauCharge->at(vec_tau[0])+tauCharge->at(vec_tau[1])) ==0;
+	bool taumucharge_[2], mucharge_[0];
+	taumucharge_[0] = taumuCharge ? true : false;
+	taumucharge_[1] = taumuCharge ? false : true;
+
+	for(int i=0; i<2; i++) {
+	  if(!taumucharge_[i]) continue;
+	  plotFill("InvariantMass_of_4_particle_with_"+totcharge[i],HH.M(),300,250,900,weight);
+	}
+	if(taumucharge_[0]) {
+	  bool muCharge_ = (muCharge->at(vec_mu[0])+muCharge->at(vec_mu[1])) ==0;
+	  mucharge_[0] = muCharge_ ? true : false;
+	  mucharge_[1] = muCharge_ ? false : true;
+
+	  for(int i=0; i<2; i++) {
+	    if(!mucharge_[i]) continue;
+	    plotFill("InvariantMass_of_4_particle_with_"+taumucharge[i],HH.M(),300,250,900,weight);
+	  }
+	}
+	for(int i=0; i<2; i++) {
+	  for(int j=0; j<2; j++) {
+	    bool taumucharge = tauCharge->at(vec_tau[i]) + muCharge->at(vec_mu[j]) ==0;
+	    std::string title = (taumucharge) ? "opposite_sign" : "same_sign";
+	    TLorentzVector t, m, H;
+	    t.SetPtEtaPhiE(tauPt->at(vec_tau[i]),tauEta->at(vec_tau[i]),tauPhi->at(vec_tau[i]),tauEnergy->at(vec_tau[i]));
+	    m.SetPtEtaPhiE(muPt->at(vec_mu[j]),muEta->at(vec_mu[j]),muPhi->at(vec_mu[j]),muEn->at(vec_mu[j]));
+	    H= t+m;
+	    plotFill("InvariantMass_of_taumu_with_"+title,H.M(),80,40,200,weight);
+	  }
+	}
+      }
+    }
+
+    //end of analysis code, close and write histograms/file
+
+    fout->cd();
+    h_mass->Write();
+    map<string, TH1F*>::const_iterator iMap1 = myMap1->begin();
+    map<string, TH1F*>::const_iterator jMap1 = myMap1->end();
+    for (; iMap1 != jMap1; ++iMap1)
+      nplot1(iMap1->first)->Write();
+    
+    fout->Close();
+  }
+}  
+
+

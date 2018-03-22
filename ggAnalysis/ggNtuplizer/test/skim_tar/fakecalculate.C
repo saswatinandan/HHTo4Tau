@@ -1,0 +1,47 @@
+#include "TROOT.h"
+#include "TFile.h"
+#include "TTree.h"
+#include "TBrowser.h"
+#include "TH1.h"
+#include "TH2.h"
+#include "TH3.h"
+#include "TRandom.h"
+#include "TCanvas.h"
+#include "math.h"
+#include "TGaxis.h"
+#include "TLegend.h"
+#include "TInterpreter.h"
+#include "TSystem.h"
+#include "TNtuple.h"
+#include "TPaveLabel.h"
+#include "TPaveText.h"
+#include "TFrame.h"
+#include <fstream>
+#include <sstream>
+#include <stdio.h>
+#include <vector>
+#include <utility>
+#include <iostream>
+#include <map>
+#include "TLorentzVector.h"
+
+void fakecalculate() {
+  std::string f[9] = {"DYFakein_Data19.root","DYFakein_TT.root","DYFakein_WZ.root","DYFakein_ZZ.root","DYFakein_Wjets.root",
+		      "DYFakein_WW.root","DYFakein_DY.root","DYFakein_zzTo4L.root","fakecalculate_inST.root"};
+
+TFile* f1 = TFile::Open(f[0].c_str());
+TH1F* h_deno = (TH1F*) f1->Get("deno");
+TH1F* h_neo = (TH1F*) f1->Get("neo");
+ cout << h_deno->GetBinContent(2) << endl;
+
+for(int i=1; i<9; i++) {
+  TFile* f1 = TFile::Open(f[i].c_str());
+  TH1F* h1 = (TH1F*) f1->Get("deno");
+  TH1F* h2 = (TH1F*) f1->Get("neo");
+  h_deno->Add(h1,-1);
+  cout << "2nd" << h_neo->GetBinContent(2) << endl;
+  h_neo->Add(h2,-1);
+ }
+ h_neo->Divide(h_deno);
+ h_neo->Draw();
+}

@@ -1,0 +1,316 @@
+5,6c5
+< TLorentzVector& Hadron(const reco::Candidate& d, TLorentzVector& hadron);
+< void dump(edm::Handle<vector<reco::GenParticle> > genParticlesHandle);
+---
+> 
+32c31
+< vector<float> mcEt;
+---
+> vector<float>    mcEt;
+38a38
+> //vector<int>      mcIndex;
+47,61d46
+< vector<float>    mcHadronPt;
+< vector<float>    mcHadronMass;
+< vector<float>    mcHadronEta;
+< vector<float>    mcHadronPhi;
+< vector<float>    mcHadronE;
+< vector<float> mcHadronEt;
+< vector<int>      mcHadronGMomPID;
+< vector<int>      mcHadronMomPID;
+< vector<float>    mcHadronMomPt;
+< vector<float>    mcHadronMomMass;
+< vector<float>    mcHadronMomEta;
+< vector<float>    mcHadronMomPhi;
+< //vector<int>      mcIndex;                                                                                                                    
+< 
+< 
+75c60
+<       continue;
+---
+>         continue;
+99,105c84,85
+<   // Returns pT sum without counting neutral particles.
+<   float ptSum = 0;
+< 
+<   for (reco::GenParticleCollection::const_iterator p = handle->begin(); p != handle->end(); ++p) {
+<     if (p == thisPart) continue;
+<     if (p->status() != 1) continue;
+<     if (p->charge() == 0) continue;  // do not count neutral particles
+---
+>    // Returns pT sum without counting neutral particles.
+>    float ptSum = 0;
+107,115c87,101
+<     // has to come from the same collision
+<     if (thisPart->collisionId() != p->collisionId())
+<       continue;
+< 
+<     // pass a minimum pt threshold
+<     // if (p->pt() < 0) continue;
+<     // must be within deltaR cone
+<     float dR = reco::deltaR(thisPart->momentum(), p->momentum());
+<     if (dR > dRMax) continue;
+---
+>    for (reco::GenParticleCollection::const_iterator p = handle->begin(); p != handle->end(); ++p) {
+>       if (p == thisPart) continue;
+>       if (p->status() != 1) continue;
+>       if (p->charge() == 0) continue;  // do not count neutral particles
+> 
+>       // has to come from the same collision
+>       if (thisPart->collisionId() != p->collisionId())
+>          continue;
+> 
+>       // pass a minimum pt threshold
+>       // if (p->pt() < 0) continue;
+> 
+>       // must be within deltaR cone
+>       float dR = reco::deltaR(thisPart->momentum(), p->momentum());
+>       if (dR > dRMax) continue;
+117,118c103,104
+<     ptSum += p->pt();
+<   }
+---
+>       ptSum += p->pt();
+>    }
+120c106
+<   return ptSum;
+---
+>    return ptSum;
+144a131
+> 
+163a151
+>   //tree->Branch("mcIndex",      &mcIndex);
+171,182d158
+<   tree->Branch("mcHadronPt",         &mcHadronPt);
+<   tree->Branch("mcHadronMass",       &mcHadronMass);
+<   tree->Branch("mcHadronEta",        &mcHadronEta);
+<   tree->Branch("mcHadronPhi",        &mcHadronPhi);
+<   tree->Branch("mcHadronE",          &mcHadronE);
+<   tree->Branch("mcHadronGMomPID",    &mcHadronGMomPID);
+<   tree->Branch("mcHadronMomPID",     &mcHadronMomPID);
+<   tree->Branch("mcHadronMomPt",      &mcHadronMomPt);
+<   tree->Branch("mcHadronMomMass",    &mcHadronMomMass);
+<   tree->Branch("mcHadronMomEta",     &mcHadronMomEta);
+<   tree->Branch("mcHadronMomPhi",     &mcHadronMomPhi);
+< 
+211c187
+<       pdf_.push_back(genEventInfoHandle->pdf()->xPDF.first); // PDF weight for parton #1
+---
+>       pdf_.push_back(genEventInfoHandle->pdf()->xPDF.first);  // PDF weight for parton #1
+275c251
+<       nPU_ .push_back(pu->getPU_NumInteractions());
+---
+>       nPU_   .push_back(pu->getPU_NumInteractions());
+306c282
+<   mcMomEta .clear();
+---
+>   mcMomEta    .clear();
+307a284
+>   //mcIndex     .clear();
+315,325d291
+<   mcHadronPt        .clear();
+<   mcHadronMass      .clear();
+<   mcHadronEta       .clear();
+<   mcHadronPhi       .clear();
+<   mcHadronE         .clear();
+<   mcHadronGMomPID   .clear();
+<   mcHadronMomPID    .clear();
+<   mcHadronMomPt     .clear();
+<   mcHadronMomMass   .clear();
+<   mcHadronMomEta .clear();
+<   mcHadronMomPhi    .clear();
+348,365c314,320
+<  bool photonOrLepton =
+<    (ip->pdgId() == 22 && (ip->isPromptFinalState() || ip->isLastCopy())) ||
+<    (status == 1 && abs(ip->pdgId()) == 11 && (ip->isPromptFinalState() || ip->isLastCopy())) || 
+<    (status == 1 && abs(ip->pdgId()) == 13 && (ip->isPromptFinalState() || ip->isLastCopy())) ||
+<    (status == 1 && (abs(ip->pdgId()) == 12 || abs(ip->pdgId()) == 14 || abs(ip->pdgId()) == 16)) ||
+<    //   (status == 1 && ( abs(ip->pdgId()) >= 11 && abs(ip->pdgId()) <= 16 ) && ip->pt() > 3.0)  ||
+<    //(status < 10 && abs(ip->pdgId()) == 15 && ip->pt() > 3.0);
+<    (status == 1 && ( abs(ip->pdgId()) >= 11 && abs(ip->pdgId()) <= 16 ))  ||   
+<    (status < 10 && abs(ip->pdgId()) == 15);
+< 
+<  if((fabs(ip->pdgId()) ==12|| fabs(ip->pdgId()) ==14||fabs(ip->pdgId()) ==16) && ip->status() !=1) {
+<    cout << "status== " << ip->status() << "pt= " << ip->pt() << "pz= " << ip->pz() << endl;
+<    const reco::Candidate *p = (const reco::Candidate*)&(*ip);
+<    for (size_t k=0; k < p->numberOfDaughters(); ++k) {
+<      const reco::Candidate *dp = p->daughter(k);
+<      cout << "k= " << k << "pdgid= " << dp->pdgId() << "status= " << dp->status() << "pt= " << ip->pt() << "pz= " << ip->pz() << endl;
+<    }
+<  }
+---
+>     bool photonOrLepton =
+>       (ip->pdgId() == 22 && (ip->isPromptFinalState() || ip->isLastCopy())) ||
+>       (status == 1 && abs(ip->pdgId()) == 11 && (ip->isPromptFinalState() || ip->isLastCopy())) || 
+>       (status == 1 && abs(ip->pdgId()) == 13 && (ip->isPromptFinalState() || ip->isLastCopy())) ||
+>       (status == 1 && (abs(ip->pdgId()) == 12 || abs(ip->pdgId()) == 14 || abs(ip->pdgId()) == 16)) ||
+>       (status == 1 && ( abs(ip->pdgId()) >= 11 && abs(ip->pdgId()) <= 16 ) && ip->pt() > 3.0)  ||
+>       (status < 10 && abs(ip->pdgId()) == 15 && ip->pt() > 3.0);
+367c322
+<  // select also Z, W, H, top and b 
+---
+>     // select also Z, W, H, top and b 
+386,388c341,343
+<       mcVtx    .push_back(p->vx());
+<       mcVty    .push_back(p->vy());
+<       mcVtz    .push_back(p->vz());
+---
+> //      mcVtx    .push_back(p->vx());
+> //      mcVty    .push_back(p->vy());
+> //      mcVtz    .push_back(p->vz());
+390c345
+<       mcMass .push_back(p->mass());
+---
+>       mcMass   .push_back(p->mass());
+393c348
+<       mcE .push_back(p->energy());
+---
+>       mcE      .push_back(p->energy());
+402d356
+<       
+411c365
+<     }
+---
+>         }
+421d374
+< 
+433,434c386
+< 
+< 	bool dump_(false);
+---
+> 	
+437,442d388
+< 		  if((ip->pdgId() ==13 && momRef->pdgId() ==-15) || (ip->pdgId() ==-13 && momRef->pdgId() ==15)) { 
+< 	    dump_ = true; 
+< 	    std::cout << "pdgid= " << ip->pdgId() << "real parent= " << momRef->pdgId() << std::endl;
+< 	  }
+< 	  if(dump_) dump(genParticlesHandle);
+< 
+448a395
+> 	    
+467,529c414,424
+< 
+<       //// keep hadron coming from tau which is coming from Z
+<       double mcHadronPt_ = -999.;
+<       double mcHadronEta_ = -999.;
+<       double mcHadronPhi_ = -999.;
+<       double mcHadronMass_ = -999.;
+<       double mcHadronE_ = -999.;
+<       int mcHadronGMomPID_ = -999.;
+<       int mcHadronMomPID_ = -999.;
+<       double mcHadronMomPt_ = -999.;
+<       double mcHadronMomEta_ = -999.;
+<       double mcHadronMomPhi_ = -999.;
+<       double mcHadronMomMass_ = -999.;
+< 
+<       if(fabs(ip->pdgId()) ==15 && mcMomPID_ ==23) {
+< 	TLorentzVector hadron;
+< 	hadron.SetPtEtaPhiE(0.,0.,0.,0.);
+< 	bool tauhadron(false);
+< 	for(unsigned int i=0; i<ip->numberOfDaughters(); i++){
+< 	  const reco::Candidate& d = (*(ip->daughter(i)));
+< 	  if(fabs(d.pdgId()) ==11 || fabs(d.pdgId()) ==12 || fabs(d.pdgId()) ==13 || fabs(d.pdgId()) ==14 || fabs(d.pdgId()) ==16) continue;
+< 	  tauhadron =true;
+< 	  hadron += Hadron(d,hadron);
+< 	}
+< 
+< 	if(tauhadron) {
+< 	  mcHadronPt_ = hadron.Pt();
+< 	  mcHadronEta_ = hadron.Eta();
+< 	  mcHadronPhi_ = hadron.Phi();
+< 	  mcHadronMass_ = hadron.M();
+< 	  mcHadronE_ = hadron.E();
+< 	  mcHadronGMomPID_ = mcMomPID_;
+< 	  mcHadronMomPID_ = ip->pdgId();
+< 	  mcHadronMomPt_ = p->pt();
+< 	  mcHadronMomMass_ = p->mass();
+< 	  mcHadronMomEta_ = p->eta();
+< 	  mcHadronMomPhi_ = p->phi();
+< 	}
+<       }
+< 
+<       mcHadronPt.push_back(mcHadronPt_);
+<       mcHadronEta.push_back(mcHadronEta_);
+<       mcHadronPhi.push_back(mcHadronPhi_);
+<       mcHadronMass.push_back(mcHadronMass_);
+<       mcHadronE.push_back(mcHadronE_);
+<       mcHadronGMomPID.push_back(mcHadronGMomPID_);
+<       mcHadronMomPID.push_back(mcHadronMomPID_);
+<       mcHadronMomPt.push_back(mcHadronMomPt_);
+<       mcHadronMomMass.push_back(mcHadronMomMass_);
+<       mcHadronMomEta.push_back(mcHadronMomEta_);
+<       mcHadronMomPhi.push_back(mcHadronMomPhi_);
+<       
+<       if (photonOrLepton) {
+< 	mcCalIsoDR03.push_back( getGenCalIso(genParticlesHandle, ip, 0.3, false, false) );
+< 	mcTrkIsoDR03.push_back( getGenTrkIso(genParticlesHandle, ip, 0.3) );
+< 	mcCalIsoDR04.push_back( getGenCalIso(genParticlesHandle, ip, 0.4, false, false) );
+< 	mcTrkIsoDR04.push_back( getGenTrkIso(genParticlesHandle, ip, 0.4) );
+<       } else {
+< 	mcCalIsoDR03.push_back( -999. );
+< 	mcTrkIsoDR03.push_back( -999. );
+< 	mcCalIsoDR04.push_back( -999. );
+< 	mcTrkIsoDR04.push_back( -999. );
+<       }
+---
+> //  if (photonOrLepton) {
+> //	mcCalIsoDR03.push_back( getGenCalIso(genParticlesHandle, ip, 0.3, false, false) );
+> //	mcTrkIsoDR03.push_back( getGenTrkIso(genParticlesHandle, ip, 0.3) );
+> //	mcCalIsoDR04.push_back( getGenCalIso(genParticlesHandle, ip, 0.4, false, false) );
+> //	mcTrkIsoDR04.push_back( getGenTrkIso(genParticlesHandle, ip, 0.4) );
+> //    } else {
+> //	mcCalIsoDR03.push_back( -999. );
+> //	mcTrkIsoDR03.push_back( -999. );
+> //	mcCalIsoDR04.push_back( -999. );
+> //	mcTrkIsoDR04.push_back( -999. );
+> //      }
+532c427
+<     }
+---
+>     } // save info on particles of interest
+534,535d428
+< }
+< 
+537,578d429
+< TLorentzVector& Hadron(const reco::Candidate& d, TLorentzVector& hadron) {
+<   TLorentzVector h;
+<   if(d.status() ==1) {
+<     h.SetPtEtaPhiE(d.pt(),d.eta(),d.phi(),d.energy());
+<     hadron +=h;
+<   }
+<   else {
+<     
+<     for(unsigned int i=0; i<d.numberOfDaughters(); i++){
+<       const reco::Candidate& dd = (*(d.daughter(i)));
+< 	hadron += Hadron(dd, hadron);
+<     }
+<  }
+<   return hadron;
+< }
+< 
+< 
+< void dump(edm::Handle<vector<reco::GenParticle> > genParticlesHandle) {
+<   cout << "dump the gen info" << endl;
+<   int indx(0);
+<   for (vector<reco::GenParticle>::const_iterator ip = genParticlesHandle->begin(); ip != genParticlesHandle->end(); ++ip) {
+<     indx +=1;
+<     cout << "genIndex= " << indx << "pdgid= " << ip->pdgId() << "status= " << ip->status() << "pt= " << ip->status() << "energy= " << ip->energy() << "charge= " << ip->charge() << "isDirectPromptTauDecayProductFinalState" << ip->isDirectPromptTauDecayProductFinalState() << "mother= " << ip->numberOfMothers() << "daughters= " << ip->numberOfDaughters() << endl;
+< 
+<     for(unsigned int i=0; i<ip->numberOfMothers(); i++) {
+<       const reco::Candidate& m = *(ip->mother(i));
+<       cout << "mompdgId= " << m.pdgId() << "charge= " << m.charge() << "status= " << m.status() << "pt= " << m.pt() << endl;
+<     }
+< 
+<     for(unsigned int i=0; i<ip->numberOfDaughters(); i++) {
+<       const reco::Candidate& d = *(ip->daughter(i));
+<       cout << "daupdgId= " << d.pdgId() << "charge= " << d.charge() << "status= " << d.status() << "pt= " << d.pt() << endl;
+<       if(fabs(d.pdgId()) ==15) {
+< 	for(unsigned int j=0; j<d.numberOfDaughters(); j++) {
+< 	  const reco::Candidate& dd = *(d.daughter(j));
+< 	  cout << "pdgid of daughter of tau = " << dd.pdgId() << "charge= " << dd.charge() << "status= " << dd.status() << "pt= " << dd.pt() << endl;
+< 	}
+<       }
+<     }
+< 
+<   }
+<   cout << "Exiting form dumping" << endl;
